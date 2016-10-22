@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Implementation-Title: LocationService
+Implementation-Version: 0.1.1
+Built-By: Shane
+Implementation-Vendor-Id: vozie.ridesharing.app
+Build-Jdk: 1.8.0_101
+Implementation-URL: http://projects.spring.io/spring-boot/location_ser
+ vice/
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+
