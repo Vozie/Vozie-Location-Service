@@ -85,13 +85,48 @@ public class LocationService {
     		 * arg1		Driver ID String
     		 */
     		case "getDriverLocation":
-    			String returnString;
-    			
     			if (getDriverIndexById(arg1) != -1)
     				return drivers.get(getDriverIndexById(arg1)).getLatitude() + "," + drivers.get(getDriverIndexById(arg1)).getLongitude();
     			return "Failed to locate driver with specified ID";
     		
     			
+			/* setMaxPickupDistance
+    		 * 
+    		 * arg1		Driver ID String
+    		 * arg2		Max Pickup Distance Integer
+    		 */
+    		case "setMaxPickupDistance":
+    			if (getDriverIndexById(arg1) != -1) {
+    				drivers.get(getDriverIndexById(arg1)).setMaxPickupDistance(Integer.valueOf(arg2));
+    				return "Set Max Pickup Distance";
+    			}
+    			return "Failed to locate driver with specified ID";
+    			
+    			
+			/* getDriversWithinRange
+    		 * 
+    		 * arg1		User Latitude String
+    		 * arg2		User Longitude String
+    		 */
+    		case "getDriversWithinRange":
+    			List<Driver> driversInRange = new ArrayList();
+    			double userLatitude = Double.valueOf(arg1);
+    			double userLongitude = Double.valueOf(arg2);
+    			
+    			for (int i = 0; i < drivers.size(); i++) {
+    				Driver tDriver = drivers.get(i);
+    				double driverLatitude = Double.valueOf(tDriver.getLatitude());
+    				double driverLongitude = Double.valueOf(tDriver.getLongitude());
+    			
+    				if (distance(userLatitude, userLongitude, driverLatitude, driverLongitude) <= tDriver.getMaxPickupDistance())
+    					driversInRange.add(tDriver);
+    			}
+    			
+    			String retString = "";
+    			for (int i = 0; i < driversInRange.size(); i++)
+    				retString += driversInRange.get(i).getId() + ",";
+    			
+    			return retString;
     	}
     	
     	return "";
@@ -193,5 +228,24 @@ public class LocationService {
     			return i;
     	return -1;
     }
+    
+    private double distance(double lat1, double lon1, double lat2, double lon2) {
+        double theta = lon1 - lon2;
+        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        dist = dist * 60 * 1.1515;
+
+        return (dist);
+      }
+    
+    private double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
+      }
+
+      private double rad2deg(double rad) {
+        return (rad * 180.0 / Math.PI);
+      }
+
 
 }

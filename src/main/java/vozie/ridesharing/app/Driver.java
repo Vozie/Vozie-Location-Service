@@ -2,6 +2,7 @@ package vozie.ridesharing.app;
 
 public class Driver {
 	private String id, latitude, longitude;
+	private int maxPickupDistance = 10;
 	private boolean active = false;
 	
 	public Driver (String id) {
@@ -34,5 +35,13 @@ public class Driver {
 	
 	public void setState(boolean active) {
 		this.active = active;
+	}
+	
+	public void setMaxPickupDistance(int maxPickupDistance) {
+		this.maxPickupDistance = maxPickupDistance;
+	}
+	
+	public int getMaxPickupDistance() {
+		return this.maxPickupDistance;
 	}
 }
