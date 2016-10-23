@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class LocationServiceController {
+	LocationService locationService = new LocationService();
 
     @RequestMapping("/locationservice")
     public String locationService(@RequestParam(value="command", required=false, defaultValue="") String command,
@@ -13,7 +14,6 @@ public class LocationServiceController {
     		@RequestParam(value="arg2", required=false, defaultValue="") String arg2,
     		@RequestParam(value="arg3", required=false, defaultValue="") String arg3,
     		@RequestParam(value="arg4", required=false, defaultValue="") String arg4) {
-    		LocationService locationService = new LocationService(command, arg1, arg2, arg3, arg4);
-        return locationService.getContent();
+        return locationService.getContent(command, arg1, arg2, arg3, arg4);
     }
 }
