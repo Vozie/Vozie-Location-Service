@@ -127,6 +127,22 @@ public class LocationService {
     				retString += driversInRange.get(i).getId() + ",";
     			
     			return retString;
+    			
+			/* setDriverActive
+    		 * 
+    		 * arg1		Driver ID to set as active
+    		 */
+    		case "setDriverActive":
+    			drivers.get(getDriverIndexById(arg1)).setState(true);
+    			return "Successfully set driver active";
+    		
+			/* setDriverInactive
+    		 * 
+    		 * arg1		Driver ID to set as inactive
+    		 */
+    		case "setDriverInctive":
+    			drivers.get(getDriverIndexById(arg1)).setState(false);
+    			return "Successfully set driver inactive";
     	}
     	
     	return "";
@@ -240,12 +256,10 @@ public class LocationService {
       }
     
     private double deg2rad(double deg) {
-        return (deg * Math.PI / 180.0);
-      }
+    	return (deg * Math.PI / 180.0);
+    }
 
-      private double rad2deg(double rad) {
-        return (rad * 180.0 / Math.PI);
-      }
-
-
+    private double rad2deg(double rad) {
+    	return (rad * 180.0 / Math.PI);
+    }
 }
